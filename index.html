@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Canonical Representation and Force-Based Pretraining of 3D Tactile for Dexterous Visuo-Tactile Policy Learning">
+  <meta name="keywords" content="Dexterous Manipulation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3DTacDex</title>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FV4ZJ9PVSV"></script>  
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-FV4ZJ9PVSV');
+  </script>
+
+  <script>
+
+    function updateInteractive() {
+      var task = document.getElementById("interative-menu").value;
+
+      console.log("interactive", task)
+
+      // if task does not contain the string "towel"
+      if (task.indexOf("towel") == -1) {
+        var video = document.getElementById("interactive-video");
+        video.src = "media/videos/" + 
+                    task + 
+                    ".mp4"
+        video.play();
+
+        var html = document.getElementById("interactive-html-1");
+        html.src = "media/interactive/" + 
+                    task + 
+                    ".html"
+
+        // hide the second iframe container
+        var iframeContainer2 = document.getElementById("second-iframe-container");
+        iframeContainer2.style.display = "none";
+      } else {
+        var video = document.getElementById("interactive-video");
+        video.src = "media/videos/hang-towel.mp4"
+        video.play();
+
+        var html1 = document.getElementById("interactive-html-1");
+        html1.src = "media/interactive/hang-towel-1.html"
+
+        // show and set the source for the second iframe
+        var html2 = document.getElementById("interactive-html-2");
+        html2.src = "media/interactive/hang-towel-2.html"
+
+        // show the second iframe container
+        var iframeContainer2 = document.getElementById("second-iframe-container");
+        iframeContainer2.style.display = "block";
+      }
+    }
+
+
+
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body onload="updateInteractive();">
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-fullhd">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Canonical Representation and Force-Based Pretraining of 3D Tactile for Dexterous Visuo-Tactile Policy Learning</h1>
+          <!-- <h3 class="title is-4 conference-authors"><a target="_blank" href="https://www.corl2023.org/">CoRL 2023 (Oral)</a></h3> -->
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a target="_blank" href="https://tianhaowuhz.github.io/">Tianhao Wu</a><sup>1,2,3</sup>,
+            </span>
+            <span class="author-block">
+              <!-- name -->
+              <a target="_blank" href="https://kingchou007.github.io/">Jinzhou Li</a><sup>1,2*</sup>,
+            </span>
+            <span class="author-block">
+              <a target="_blank" href="https://jiyao06.github.io/">Jiyao Zhang</a><sup>1,2,3*</sup>,
+            </span>
+            <span class="author-block">
+              <a target="_blank" href="https://aaronanima.github.io/">Mingdong Wu</a><sup>1,2,3</sup>,
+            </span>
+            <span class="author-block">
+              <a target="_blank" href="https://zsdonghao.github.io/">Hao Dong</a><sup>1,2,3,&#x2709;</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Center on Frontiers of Computing Studies, School of Computer Science, Peking University</span>
+            <span class="author-block"><sup>2</sup>PKU-Agibot Lab, School of Computer Science, Peking University</span>
+            <span class="author-block"><sup>3</sup>National Key Laboratory for Multimedia Information Processing, School of Computer Science, Peking University</span>
+            <!-- <span class="author-block"><sup>4</sup>Institute for Artificial Intelligence, Peking University</span> -->
+            <!-- <span class="author-block"><sup>5</sup>National Key Laboratory of General AI, Beijing Institute for General Artificial Intelligence</span> -->
+            
+            <span class="author-block"><sup>*</sup>Equal Contribution</span>
+            <span class="author-block"><sup>&#x2709</sup>Corresponding Author</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a target="_blank" href="3dtacdex.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+
+            <!-- Arxiv Link. -->
+            <!-- <span class="link-block">
+              <a target="_blank" href="https://arxiv.org/abs/2307.05973"
+                 class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                    <i class="fas fa-file"></i>
+                </span>
+                <span>ArXiv</span>
+              </a>
+            </span> -->
+
+            <!-- Video Link. -->
+            <span class="link-block">
+              <a target="_blank" href="https://youtu.be/j8Vtia1AWZk"
+                 class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                    <i class="fab fa-youtube"></i>
+                </span>
+                <span>Video</span>
+              </a>
+            </span>
+
+            <!-- Code Link. -->
+            <!-- <span class="link-block">
+              <a target="_blank" href="https://github.com/tianhaowuhz/DexFunPreGrasp"
+                 class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                    <i class="fab fa-github"></i>
+                </span>
+                <span>Code</span>
+                </a>
+            </span> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-fullhd">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-vcentered  is-centered">
+          <img src="media/figures/Tasks.png" class="interpolation-image" style="width: 100%; height: 100%;"/>
+          </br>
+        </div>
+        <br>
+        <h2 class="subtitle has-text-centered">
+          Our policy leverages both spatial and force information of 3D tactile to accomplish dexterous, fine-grained and contact-rich tasks.
+        </h2>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- <section class="hero is-light is-small">
+  <div class="hero-body">
+    <h2 class="title is-3">Ours</h2>
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item">
+          <video poster="" autoplay muted loop width="50%">
+            <source src="media/videos/demo/headphones/contactpose_headphones/cam_view_12_arm_h264.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop width="50%">
+            <source src="media/videos/demo/headphones/headphones_s111/cam_view_12_arm_h264.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item">
+          <video poster="" autoplay muted loop width="50%">
+            <source src="media/videos/demo/knife/knife_s118/cam_view_12_arm_h264.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop width="50%">
+            <source src="media/videos/demo/knife/knife_s146/cam_view_12_arm_h264.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item">
+          <video poster="" autoplay muted loop width="50%">
+            <source src="media/videos/demo/lotion_pump/lotion_pump_s103/cam_view_12_arm_h264.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop width="50%">
+            <source src="media/videos/demo/lotion_pump/lotion_pump_s108/cam_view_12_arm_h264.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item">
+          <video poster="" autoplay muted loop width="50%">
+            <source src="media/videos/demo/mug/mug_s014/cam_view_12_arm_h264.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop width="50%">
+            <source src="media/videos/demo/mug/mug_s020/cam_view_12_arm_h264.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item">
+          <video poster="" autoplay muted loop width="50%">
+            <source src="media/videos/demo/screwdriver/screwdriver_0/cam_view_12_arm_h264.mp4"
+                    type="video/mp4">
+          </video>
+          <video poster="" autoplay muted loop width="50%">
+            <source src="media/videos/demo/screwdriver/screwdriver_3/cam_view_12_arm_h264.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- <h2 class="subtitle has-text-centered">
+</br>
+  Our method can generalize to diverse objects and functional goal poses without object geometry information.
+</h2> -->
+
+
+<section class="section">
+  <!-- Paper video. -->
+  <br>
+  <br>
+
+  <div class="container is-max-widescreen">
+
+    <div class="rows">
+      <!-- <h2 class="title is-3">Video</h2> -->
+      <div class="publication-video">
+        <iframe src="https://www.youtube.com/embed/j8Vtia1AWZk?si=GEXgnpKZ7OLtxSUF"></iframe>
+      </div>
+      <script src="https://www.youtube.com/embed/j8Vtia1AWZk?si=GEXgnpKZ7OLtxSUF"></script>
+    </div>
+  </div>
+
+  <div class="container is-max-desktop"></div>
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Summary</h2>
+        <div class="content has-text-justified">
+          <p>
+            Tactile sensing plays a vital role in enabling
+            robots to perform fine-grained, contact-rich tasks. However, the
+            high dimensionality of tactile data, due to the large coverage
+            on dexterous hands, poses significant challenges for effective
+            tactile feature learning, especially for 3D tactile data, as there
+            are no large standardized datasets and no strong pretrained
+            backbones. To address these challenges, we propose a novel
+            canonical representation that reduces the difficulty of 3D tactile
+            feature learning and further introduces a force-based selfsupervised pretraining task to capture both local and net force
+            features, which are crucial for dexterous manipulation. Our
+            method achieves an average success rate of 80% across three
+            fine-grained, contact-rich dexterous manipulation tasks in realworld experiments, demonstrating effectiveness and robustness
+            compared to other methods. Further analysis shows that our
+            method fully utilizes both spatial and force information from 3D
+            tactile data to accomplish the tasks.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-widescreen">
+
+    <div class="rows">
+      <h2 class="title is-3">Comparsion of Different Manipulation Policies</h2>
+      
+      <!-- <p class="content has-text-justified">
+        Our policy can generalize to most of the unseen objects that have varying color, geometry and dynamics.
+      </p> -->
+      
+      <h3 class="title is-3">Open Box</h3>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <div>Ours</div>
+          <img src="media/figures/main/ours/openbox/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>T-DEX</div>
+          <img src="media/figures/main/tdex/openbox/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>DP</div>
+          <img src="media/figures/main/dp/openbox/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>HATO</div>
+          <img src="media/figures/main/hato/openbox/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>GNN</div>
+          <img src="media/figures/main/gnn/openbox/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+
+      </div>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <img src="media/figures/main/ours/openbox/3.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/tdex/openbox/3.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/dp/openbox/3.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/hato/openbox/3.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/gnn/openbox/3.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        
+      </div>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <img src="media/figures/main/ours/openbox/7.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/tdex/openbox/8.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/dp/openbox/5.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/hato/openbox/10.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/gnn/openbox/6.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        
+      </div>
+
+      <h3 class="title is-3">Reorientation</h3>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <div>Ours</div>
+          <img src="media/figures/main/ours/reori/9.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>T-DEX</div>
+          <img src="media/figures/main/tdex/reori/9.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>DP</div>
+          <img src="media/figures/main/dp/reori/9.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>HATO</div>
+          <img src="media/figures/main/hato/reori/9.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>GNN</div>
+          <img src="media/figures/main/gnn/reori/9.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+
+      </div>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <img src="media/figures/main/ours/reori/2.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/tdex/reori/2.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/dp/reori/2.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/hato/reori/2.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/gnn/reori/2.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        
+      </div>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <img src="media/figures/main/ours/reori/8.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/tdex/reori/4.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/dp/reori/7.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/hato/reori/3.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/gnn/reori/1.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        
+      </div>
+
+      <h3 class="title is-3">Flip</h3>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <div>Ours</div>
+          <img src="media/figures/main/ours/flip/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>T-DEX</div>
+          <img src="media/figures/main/tdex/flip/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>DP</div>
+          <img src="media/figures/main/dp/flip/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>HATO</div>
+          <img src="media/figures/main/hato/flip/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>GNN</div>
+          <img src="media/figures/main/gnn/flip/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+
+      </div>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <img src="media/figures/main/ours/flip/7.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/tdex/flip/7.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/dp/flip/7.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/hato/flip/7.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/gnn/flip/7.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        
+      </div>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <img src="media/figures/main/ours/flip/8.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/tdex/flip/5.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/dp/flip/6.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/hato/flip/4.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/gnn/flip/5.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        
+      </div>
+
+      <h3 class="title is-3">Assembly</h3>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <div>Ours</div>
+          <img src="media/figures/main/ours/assembly/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>T-DEX</div>
+          <img src="media/figures/main/tdex/assembly/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>DP</div>
+          <img src="media/figures/main/dp/assembly/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>HATO</div>
+          <img src="media/figures/main/hato/assembly/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>GNN</div>
+          <img src="media/figures/main/gnn/assembly/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+
+      </div>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <img src="media/figures/main/ours/assembly/7.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/tdex/assembly/7.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/dp/assembly/7.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/hato/assembly/7.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/gnn/assembly/5.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        
+      </div>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <img src="media/figures/main/ours/assembly/2.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/tdex/assembly/2.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/dp/assembly/5.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/hato/assembly/6.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/gnn/assembly/2.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        
+      </div>
+
+      
+    </div>
+  </div>
+</section>
+
+<!-- <section class="section"></section>
+  <div class="container is-max-widescreen">
+
+    <div class="rows">
+      <h2 class="title is-3">Ablation</h2>
+      
+      <h3 class="title is-3">Open Box</h3>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <div>Ours</div>
+          <img src="media/figures/main/ours/openbox/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>T-DEX</div>
+          <img src="media/figures/main/tdex/openbox/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>DP</div>
+          <img src="media/figures/main/dp/openbox/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>HATO</div>
+          <img src="media/figures/main/hato/openbox/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>GNN</div>
+          <img src="media/figures/main/gnn/openbox/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+
+      </div>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <img src="media/figures/main/ours/openbox/3.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/tdex/openbox/3.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/dp/openbox/3.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/hato/openbox/3.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/gnn/openbox/3.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        
+      </div>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <img src="media/figures/main/ours/openbox/7.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/tdex/openbox/8.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/dp/openbox/5.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/hato/openbox/10.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/gnn/openbox/6.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        
+      </div>
+
+      <h3 class="title is-3">Reorientation</h3>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <div>Ours</div>
+          <img src="media/figures/main/ours/reori/9.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>T-DEX</div>
+          <img src="media/figures/main/tdex/reori/9.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>DP</div>
+          <img src="media/figures/main/dp/reori/9.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>HATO</div>
+          <img src="media/figures/main/hato/reori/9.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>GNN</div>
+          <img src="media/figures/main/gnn/reori/9.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+
+      </div>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <img src="media/figures/main/ours/reori/1.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/tdex/reori/1.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/dp/reori/1.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/hato/reori/1.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/gnn/reori/1.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        
+      </div>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <img src="media/figures/main/ours/reori/8.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/tdex/reori/2.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/dp/reori/7.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/hato/reori/3.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/gnn/reori/2.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        
+      </div>
+
+      <h3 class="title is-3">Flip</h3>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <div>Ours</div>
+          <img src="media/figures/main/ours/flip/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>T-DEX</div>
+          <img src="media/figures/main/tdex/flip/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>DP</div>
+          <img src="media/figures/main/dp/flip/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>HATO</div>
+          <img src="media/figures/main/hato/flip/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>GNN</div>
+          <img src="media/figures/main/gnn/flip/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+
+      </div>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <img src="media/figures/main/ours/flip/7.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/tdex/flip/7.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/dp/flip/7.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/hato/flip/7.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/gnn/flip/7.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        
+      </div>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <img src="media/figures/main/ours/flip/8.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/tdex/flip/5.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/dp/flip/6.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/hato/flip/4.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/gnn/flip/5.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        
+      </div>
+
+      <h3 class="title is-3">Assembly</h3>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <div>Ours</div>
+          <img src="media/figures/main/ours/assembly/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>T-DEX</div>
+          <img src="media/figures/main/tdex/assembly/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>DP</div>
+          <img src="media/figures/main/dp/assembly/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>HATO</div>
+          <img src="media/figures/main/hato/assembly/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <div>GNN</div>
+          <img src="media/figures/main/gnn/assembly/1.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+
+      </div>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <img src="media/figures/main/ours/assembly/7.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/tdex/assembly/7.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/dp/assembly/7.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/hato/assembly/7.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/gnn/assembly/5.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        
+      </div>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <img src="media/figures/main/ours/assembly/2.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/tdex/assembly/2.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/dp/assembly/5.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/hato/assembly/6.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/main/gnn/assembly/2.gif" class="interpolation-image" style="width: auto; height: 88%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        
+      </div>
+
+      
+    </div>
+  </div>
+</section> -->
+
+<section class="section">
+  <div class="container is-max-widescreen">
+
+    <div class="rows">
+      <h2 class="title is-3">Role of Spatial and Force Information</h2>
+      
+      <p class="content has-text-justified">
+        
+      </p>
+      
+      <div class="columns">
+        <div class="column has-text-centered">
+          <img src="media/figures/info_ablation/spatial_ablation.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+            <b>Without Spatial Ablation:</b> We observed that after the robot reaching the object and attempting to grasp it, the thumb oscillated randomly, preventing further manipulation, which indicates our policy leverages spatial information for forming gross hand poses.
+          </p>
+        </div>
+
+        <div class="column has-text-centered">
+          <img src="media/figures/info_ablation/force_ablation.gif" class="interpolation-image" style="width: auto; height: 70%;"/>
+          <p style="text-align:center">
+            <b>Without Force Ablation:</b> Although the robot managed to reach and grasp the object, it consistently failed due to an unstable grasping or continuously adjusting grasp, which indicates our policy leverages force information for more fine-grained adjustments.
+          </p>
+        </div>
+      </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-widescreen">
+
+    <div class="rows">
+      <h2 class="title is-3">Generalization on Unseen Objects</h2>
+      
+      <p class="content has-text-justified">
+        Our policy can generalize to most of the unseen objects that have varying color, geometry and dynamics.
+      </p>
+      
+      <h3 class="title is-3">Open Box</h3>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <img src="media/figures/gen/openbox/1.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/gen/openbox/2.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/gen/openbox/3.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/gen/openbox/4.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <img src="media/figures/gen/openbox/5.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/gen/openbox/6.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/gen/openbox/7.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/gen/openbox/8.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+      </div>
+
+      <h3 class="title is-3">Reorientation</h3>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <img src="media/figures/gen/reori/1.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/gen/reori/2.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/gen/reori/3.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/gen/reori/4.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <img src="media/figures/gen/reori/5.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/gen/reori/6.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/gen/reori/7.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/gen/reori/8.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+      </div>
+
+      <h3 class="title is-3">Flip</h3>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <img src="media/figures/gen/flip/1.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/gen/flip/2.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/gen/flip/3.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/gen/flip/4.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="column has-text-centered">
+          <img src="media/figures/gen/flip/5.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/gen/flip/6.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/gen/flip/7.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="media/figures/gen/flip/8.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+          <p style="text-align:center">
+          </p>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</section>
+
+</section>
+<div class="container is-max-widescreen">
+
+  <div class="rows">
+    <h2 class="title is-3">Rollouts of Our Policy</h2>
+    
+    <!-- <p class="content has-text-justified">
+      Our policy can generalize to most of the unseen objects that have varying color, geometry and dynamics.
+    </p> -->
+    
+    <h3 class="title is-3">Open Box</h3>
+    <div class="columns">
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/openbox/1.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/openbox/2.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/openbox/3.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/openbox/4.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/openbox/5.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/openbox/6.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/openbox/7.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/openbox/8.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/openbox/9.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/openbox/10.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+    </div>
+
+    <h3 class="title is-3">Reorientation</h3>
+    <div class="columns">
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/reori/1.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/reori/2.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/reori/3.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/reori/4.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/reori/5.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/reori/6.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/reori/7.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/reori/8.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/reori/9.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/reori/10.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+    </div>
+
+    <h3 class="title is-3">Flip</h3>
+    <div class="columns">
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/flip/1.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/flip/2.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/flip/3.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/flip/4.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/flip/5.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/flip/6.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/flip/7.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/flip/8.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/flip/9.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/flip/10.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+    </div>
+
+    <h3 class="title is-3">Assembly</h3>
+    <div class="columns">
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/assembly/1.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/assembly/2.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/assembly/3.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/assembly/4.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/assembly/5.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/assembly/6.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/assembly/7.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/assembly/8.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/assembly/9.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="media/figures/main/ours/assembly/10.gif" class="interpolation-image" style="width: auto; height: 100%;"/>
+        <p style="text-align:center">
+        </p>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+</section>
+<!-- <section class="section" id="BibTeX">
+  <div class="container is-max-widescreen content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{huang2023voxposer,
+      title={Unidexfpm: Composable 3D Value Maps for Robotic Manipulation with Language Models},
+      author={Huang, Wenlong and Wang, Chen and Zhang, Ruohan and Li, Yunzhu and Wu, Jiajun and Fei-Fei, Li},
+      journal={arXiv preprint arXiv:2307.05973},
+      year={2023}
+    }</code></pre>
+  </div>
+</section> -->
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content has-text-centered">
+          <p>
+            Website template borrowed from <a href="https://voxposer.github.io/">VoxPoser</a>. 
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+</body>
+</html>
